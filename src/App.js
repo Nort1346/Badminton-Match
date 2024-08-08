@@ -168,11 +168,11 @@ function App() {
         </div>
         <div>
           <Row>
-            <Col md={6} className={`py-3 bg-${getVariant(playerOne.color)}`}>
+            <Col sm={6} className={`py-3 bg-${getVariant(playerOne.color)}`}>
               <Counter player={playerOne} setPlayer={setPlayerOne} />
             </Col>
 
-            <Col md={6} className={`py-3 bg-${getVariant(playerTwo.color)}`}>
+            <Col sm={6} className={`py-3 bg-${getVariant(playerTwo.color)}`}>
               <Counter player={playerTwo} setPlayer={setPlayerTwo} />
             </Col>
 
@@ -184,6 +184,7 @@ function App() {
                 <Button
                   className="d-flex justify-content-center align-items-center"
                   onClick={resetPlayersScore}
+                  size="lg"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -199,6 +200,7 @@ function App() {
                 <Button
                   className="d-flex justify-content-center align-items-center"
                   onClick={invertPlayers}
+                  size="lg"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -217,6 +219,7 @@ function App() {
                 <Button
                   className="d-flex justify-content-center align-items-center"
                   onClick={speakScore}
+                  size="lg"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +236,7 @@ function App() {
                   <Dropdown.Toggle
                     variant="primary"
                     id="dropdown-language"
-                    size="md"
+                    size="lg"
                     className="d-flex align-items-center"
                   >
                     <svg

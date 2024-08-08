@@ -2,8 +2,8 @@
   font-family: "Barlow", sans-serif;
 }
 
-.player-input{
-  text-align:center;
+.player-input {
+  text-align: center;
   outline: none;
   box-shadow: none;
   transition: none;
@@ -17,7 +17,7 @@
 }
 
 .vl {
-  border-left: 3px solid #0B5ED7;
+  border-left: 3px solid #0b5ed7;
   height: 100%;
   position: absolute;
   left: 50%;
@@ -47,4 +47,10 @@
 html {
   scrollbar-width: thin;
   scrollbar-color: #888 #333333;
+}
+
+body {
+  zoom: 1.35; 
+  -moz-transform: scale(1.35); 
+  -moz-transform-origin: 0 0;
 }

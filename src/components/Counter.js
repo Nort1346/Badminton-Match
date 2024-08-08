@@ -100,7 +100,7 @@ function Counter({ player, setPlayer }) {
         <Col xs={6}>
           <Button
             variant={getVariant()}
-            className={`w-100 border border-light`}
+            className={`w-100 border border-light text-truncate`}
             onClick={addSet}
           >
             +&nbsp;{t('set')}
@@ -109,7 +109,7 @@ function Counter({ player, setPlayer }) {
         <Col xs={6}>
           <Button
             variant={getVariant()}
-            className={`w-100 border border-light`}
+            className={`w-100 border border-light text-truncate`}
             onClick={removeSet}
           >
             -&nbsp;{t('set')}
