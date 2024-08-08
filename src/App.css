@@ -1,0 +1,27 @@
+* {
+  font-family: "Barlow", sans-serif;
+}
+
+.player-input{
+  text-align:center;
+  outline: none;
+  box-shadow: none;
+  transition: none;
+}
+
+.player-input:focus,
+.player-input:focus-visible,
+.player-input:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.vl {
+  border-left: 3px solid #0B5ED7;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 0;
+  z-index: -1;
+}
