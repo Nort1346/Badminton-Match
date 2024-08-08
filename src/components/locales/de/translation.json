@@ -1,0 +1,19 @@
+{
+  "title": "Badminton",
+  "fullTitle": "Badminton Match",
+  "player": "Spieler",
+  "colors": {
+    "blue": "Blau",
+    "red": "Rot"
+  },
+  "speech": {
+    "draw": "Der aktuelle Stand ist {{scoreOne}} zu {{scoreTwo}}. Es steht unentschieden.",
+    "score": "Der aktuelle Stand ist {{scoreOne}} zu {{scoreTwo}} zugunsten von {{winningName}}."
+  },
+  "set": "Satz",
+  "winnerModal": {
+    "title": "{{playerName}} gewinnt!",
+    "close": "Schließen",
+    "confirm": "Bestätigen"
+  }
+}

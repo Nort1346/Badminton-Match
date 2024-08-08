@@ -9,6 +9,7 @@ import {
 // eslint-disable-next-line
 import Player from "../classes/Player";
 import Sounds from "../Sounds";
+import { useTranslation } from "react-i18next";
 
 /**
  * @param {Object} props
@@ -17,6 +18,8 @@ import Sounds from "../Sounds";
  * @returns {JSX.Element}
  */
 function Counter({ player, setPlayer }) {
+  const { t } = useTranslation();
+
   const addPoint = () => {
     if (player.sets >= 2) return;
     setPlayer((prev) => ({ ...prev, points: player.points + 1 }));
@@ -60,7 +63,7 @@ function Counter({ player, setPlayer }) {
       <Row md={12} className="mb-3">
         <Form.Control
           type="text"
-          placeholder={`Player ${player.color}`}
+          placeholder={`${t('player')} ${t(`colors.${player.color.toLowerCase()}`)}`}
           size="lg"
           className="border border-0 bg-transparent player-input"
           id={player.color}
@@ -73,7 +76,7 @@ function Counter({ player, setPlayer }) {
           now={player.sets}
           min={0}
           max={2}
-          label={`${player.sets} Set`}
+          label={`${player.sets} ${t('set')}`}
           striped={true}
           animated={true}
           variant="success"
@@ -100,7 +103,7 @@ function Counter({ player, setPlayer }) {
             className={`w-100 border border-light`}
             onClick={addSet}
           >
-            + Set
+            +&nbsp;{t('set')}
           </Button>
         </Col>
         <Col xs={6}>
@@ -109,7 +112,7 @@ function Counter({ player, setPlayer }) {
             className={`w-100 border border-light`}
             onClick={removeSet}
           >
-            - Set
+            -&nbsp;{t('set')}
           </Button>
         </Col>
       </Row>

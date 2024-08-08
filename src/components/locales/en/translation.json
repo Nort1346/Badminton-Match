@@ -1,0 +1,19 @@
+{
+  "title": "Badminton",
+  "fullTitle": "Badminton Match",
+  "player": "Player",
+  "colors": {
+    "blue": "Blue",
+    "red": "Red"
+  },
+  "speech": {
+    "draw": "The current score is {{scoreOne}} to {{scoreTwo}}. It's a draw.",
+    "score": "The current score is {{scoreOne}} to {{scoreTwo}} in favor of {{winningName}}."
+  },
+  "set": "Set",
+  "winnerModal": {
+    "title": "{{playerName}} Wins!",
+    "close": "Close",
+    "confirm": "Confirm"
+  }
+}

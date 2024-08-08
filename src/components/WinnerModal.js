@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 function WinnerModal({ isShow, onClose, info }) {
+  const { t } = useTranslation();
   const [show, setShow] = useState(isShow);
 
   useEffect(() => {
@@ -11,6 +13,11 @@ function WinnerModal({ isShow, onClose, info }) {
   const handleClose = () => {
     setShow(false);
     if (onClose) onClose();
+  };
+
+  const handleCloseReset = () => {
+    setShow(false);
+    if (onClose) onClose(true);
   };
 
   return (
@@ -23,15 +30,20 @@ function WinnerModal({ isShow, onClose, info }) {
       size="xl"
       className={`bg-${info.variant}`}
     >
-      <Modal.Header className="d-flex justify-content-center">
-        <Modal.Title className="fs-2 fw-bolder">{`${info?.name} Wins!`}</Modal.Title>
+      <Modal.Header className="d-flex justify-content-center border-0">
+        <Modal.Title className="fs-2 fw-bolder">
+          {t("winnerModal.title", { playerName: info?.name })}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body className="fs-2 fw-bolder text-center">
         {info.score}
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="border-0 pt-0">
         <Button variant="secondary" onClick={handleClose}>
-          Close
+          {t("winnerModal.close")}
+        </Button>
+        <Button variant={info.variant} onClick={handleCloseReset}>
+          {t("winnerModal.confirm")}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -39,4 +51,3 @@ function WinnerModal({ isShow, onClose, info }) {
 }
 
 export default WinnerModal;
-

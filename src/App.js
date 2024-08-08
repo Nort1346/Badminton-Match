@@ -1,5 +1,5 @@
 import "./App.css";
-import { Row, Col, Container, Button, Stack } from "react-bootstrap";
+import { Row, Col, Container, Button, Stack, Dropdown } from "react-bootstrap";
 import Counter from "./components/Counter";
 import React, { useState, useEffect, useCallback } from "react";
 import Footer from "./components/Footer";
@@ -7,6 +7,8 @@ import Player from "./classes/Player";
 import WinnerModal from "./components/WinnerModal";
 import Sounds from "./Sounds";
 import HandleSpeak from "./components/functions/handleSpeak.js";
+import { useTranslation } from "react-i18next";
+import { changeLanguage } from "i18next";
 
 const Colors = {
   Red: "Red",
@@ -14,6 +16,7 @@ const Colors = {
 };
 
 function App() {
+  const { t } = useTranslation();
   const [playerOne, setPlayerOne] = useState(new Player(Colors.Red));
   const [playerTwo, setPlayerTwo] = useState(new Player(Colors.Blue));
   const [winnerModal, setWinnerModal] = useState({
@@ -65,9 +68,11 @@ function App() {
   useEffect(() => {
     const updateTitle = () => {
       if (playerOne.name && playerTwo.name) {
-        document.title = `${playerOne.name} vs ${playerTwo.name} | Badminton Match`;
+        document.title = `${playerOne.name} vs ${playerTwo.name} | ${t(
+          "fullTitle"
+        )}`;
       } else {
-        document.title = `Badminton Match`;
+        document.title = t("fullTitle");
       }
     };
 
@@ -75,12 +80,15 @@ function App() {
     checkSetWinner(playerTwo, playerOne, setPlayerTwo);
     checkWinner();
     updateTitle();
-  }, [playerOne, playerTwo, checkSetWinner, checkWinner]);
+  }, [playerOne, playerTwo, checkSetWinner, checkWinner, t]);
 
   const handleOpenModal = () =>
     setWinnerModal((prev) => ({ ...prev, show: true }));
-  const handleCloseModal = () =>
+
+  const handleCloseModal = (reset) => {
+    if (reset) resetPlayersScore();
     setWinnerModal((prev) => ({ ...prev, show: false }));
+  };
 
   const invertPlayers = () => {
     setPlayerOne((prevPlayerOne) => playerTwo);
@@ -114,7 +122,10 @@ function App() {
   };
 
   const getName = (player) => {
-    return player.name ?? `Player ${player.color}`;
+    return (
+      player.name ??
+      `${t("player")} ${t(`colors.${player.color.toLowerCase()}`)}`
+    );
   };
 
   const speakScore = () => {
@@ -129,12 +140,18 @@ function App() {
     } else if (p2Points > p1Points) {
       winningName = getName(playerTwo);
     } else {
-      return HandleSpeak(
-        `The current score is ${scores[0]} to ${scores[1]}. It's a draw.`
-      );
+      const phrase = t("speech.draw", {
+        scoreOne: scores[0],
+        scoreTwo: scores[1],
+      });
+      return HandleSpeak(phrase);
     }
 
-    const phrase = `The current score is ${scores[0]} to ${scores[1]} in favor of ${winningName}.`;
+    const phrase = t("speech.score", {
+      scoreOne: scores[0],
+      scoreTwo: scores[1],
+      winningName: winningName,
+    });
     HandleSpeak(phrase);
   };
 
@@ -147,7 +164,7 @@ function App() {
       />
       <Container fluid className="m-0">
         <div className="d-flex justify-content-center fs-2 fw-bolder">
-          Badminton
+          {t("title")}
         </div>
         <div>
           <Row>
@@ -206,12 +223,44 @@ function App() {
                     width="16"
                     height="16"
                     fill="currentColor"
-                    class="bi bi-megaphone-fill"
+                    className="bi bi-megaphone-fill"
                     viewBox="0 0 16 16"
                   >
                     <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25 25 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009l.496.008a64 64 0 0 1 1.51.048m1.39 1.081q.428.032.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a66 66 0 0 1 1.692.064q.491.026.966.06" />
                   </svg>
                 </Button>
+                <Dropdown>
+                  <Dropdown.Toggle
+                    variant="primary"
+                    id="dropdown-language"
+                    size="md"
+                    className="d-flex align-items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-translate"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
+                      <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
+                    </svg>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={() => changeLanguage("en")}>
+                      English
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => changeLanguage("pl")}>
+                      Polski
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => changeLanguage("de")}>
+                      Deutsch
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Stack>
             </Col>
           </Row>
