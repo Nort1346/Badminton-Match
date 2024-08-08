@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Player from "./classes/Player";
 import WinnerModal from "./components/WinnerModal";
 import Sounds from "./Sounds";
+import HandleSpeak from "./components/functions/handleSpeak.js";
 
 const Colors = {
   Red: "Red",
@@ -112,6 +113,31 @@ function App() {
     }
   };
 
+  const getName = (player) => {
+    return player.name ?? `Player ${player.color}`;
+  };
+
+  const speakScore = () => {
+    let winningName;
+    const scores = [playerOne.points, playerTwo.points];
+    scores.sort((a, b) => b - a);
+    const p1Points = parseInt(playerOne.points);
+    const p2Points = parseInt(playerTwo.points);
+
+    if (p1Points > p2Points) {
+      winningName = getName(playerOne);
+    } else if (p2Points > p1Points) {
+      winningName = getName(playerTwo);
+    } else {
+      return HandleSpeak(
+        `The current score is ${scores[0]} to ${scores[1]}. It's a draw.`
+      );
+    }
+
+    const phrase = `The current score is ${scores[0]} to ${scores[1]} in favor of ${winningName}.`;
+    HandleSpeak(phrase);
+  };
+
   return (
     <>
       <WinnerModal
@@ -169,6 +195,21 @@ function App() {
                       fillRule="evenodd"
                       d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"
                     />
+                  </svg>
+                </Button>
+                <Button
+                  className="d-flex justify-content-center align-items-center"
+                  onClick={speakScore}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-megaphone-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25 25 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009l.496.008a64 64 0 0 1 1.51.048m1.39 1.081q.428.032.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a66 66 0 0 1 1.692.064q.491.026.966.06" />
                   </svg>
                 </Button>
               </Stack>

@@ -30,4 +30,8 @@ export default class Player {
   getInfo() {
     return `${this.name} (${this.color}): ${this.points} points, ${this.sets} sets`;
   }
+
+  getName() {
+    return this.name ?? `Player ${this.color}`;
+  }
 }
