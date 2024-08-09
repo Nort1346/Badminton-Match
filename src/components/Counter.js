@@ -83,7 +83,7 @@ function Counter({ player, setPlayer, disabled }) {
           className="p-0"
         />
       </Row>
-      <Row md={12} className="my-5 d-flex justify-content-center fs-1 fw-bold">
+      <Row md={12} className="my-5 d-flex justify-content-center align-items-center fs-1 fw-bold">
         {player.points}
       </Row>
       <Row md={12} className="my-3">

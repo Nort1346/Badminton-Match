@@ -31,7 +31,7 @@ function WinnerModal({ isShow, onClose, info }) {
       className={`bg-${info.variant}`}
     >
       <Modal.Header className="d-flex justify-content-center border-0">
-        <Modal.Title className="fs-2 fw-bolder">
+        <Modal.Title className="fs-2 fw-bolder text-center">
           {t("winnerModal.title", { playerName: info?.name })}
         </Modal.Title>
       </Modal.Header>

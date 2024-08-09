@@ -50,7 +50,7 @@ html {
 }
 
 body {
-  zoom: 1.35; 
+  zoom: 1.35;
 }
 
 #confetti {
@@ -58,10 +58,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100%;
   height: 100%;
   pointer-events: none;
   overflow: hidden;
-  z-index: 1060;
+  z-index: 9999;
 }
 
 .confetti {
@@ -76,14 +77,17 @@ body {
 
 @keyframes fall {
   0% {
-      transform: translateY(-100vh) rotate(0deg);
-      opacity: 0;
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0;
   }
   1% {
     opacity: 0.9;
   }
+  99% {
+    opacity: 0.2;
+  }
   100% {
-      transform: translateY(100vh) rotate(800deg);
-      opacity: 0;
+    transform: translateY(100vh) rotate(800deg);
+    opacity: 0;
   }
 }
