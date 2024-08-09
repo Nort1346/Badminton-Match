@@ -9,6 +9,7 @@ import Sounds from "./Sounds";
 import HandleSpeak from "./components/functions/handleSpeak.js";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
+import startConfetti from "./components/functions/startConfetti.js";
 
 const Colors = {
   Red: "Red",
@@ -62,6 +63,7 @@ function App() {
     }
 
     if (winner) {
+      startConfetti();
       setWinnerModal((prev) => ({
         ...prev,
         info: winner,
@@ -147,6 +149,25 @@ function App() {
       return HandleSpeak(phrase);
     }
 
+    const pointsSubtraction = scores[0] - scores[1];
+    const pointsToWin = 21;
+    const advantagePoints = 2;
+    const pointsNeeded =
+      scores[0] >= pointsToWin && pointsSubtraction >= advantagePoints
+        ? 0
+        : Math.max(
+            pointsToWin - scores[0],
+            advantagePoints - pointsSubtraction
+          );
+
+    if (pointsNeeded <= 2 && pointsNeeded >= 1) {
+      const phrase = t("speech.needPointsToWinSet", {
+        player: winningName,
+        points: pointsNeeded,
+      });
+      return HandleSpeak(phrase);
+    }
+
     const phrase = t("speech.score", {
       scoreOne: scores[0],
       scoreTwo: scores[1],
@@ -157,6 +178,7 @@ function App() {
 
   return (
     <>
+      <div id="confetti"></div>
       <WinnerModal
         isShow={winnerModal.show}
         onClose={handleCloseModal}

@@ -12,7 +12,8 @@
   },
   "speech": {
     "draw": "Aktualny wynik to {{scoreOne}} do {{scoreTwo}}. Remis.",
-    "score": "Aktualny wynik to {{scoreOne}} do {{scoreTwo}} dla {{winningName}}."
+    "score": "Aktualny wynik to {{scoreOne}} do {{scoreTwo}} dla {{winningName}}.",
+    "needPointsToWinSet": "{{player}} brakuje {{points}} punktów do wygrania seta."
   },
   "set": "Set",
   "winnerModal": {
