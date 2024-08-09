@@ -63,6 +63,11 @@ function App() {
     }
 
     if (winner) {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
       startConfetti();
       setWinnerModal((prev) => ({
         ...prev,

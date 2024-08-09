@@ -1,5 +1,8 @@
 const startConfetti = () => {
   const confettiContainer = document.getElementById("confetti");
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
   confettiContainer.style.height = `${window.innerHeight}px`;
   confettiContainer.innerHTML = "";
 
@@ -14,9 +17,10 @@ const startConfetti = () => {
     confettiPiece.style.width = `${Math.random() * 10 + 5}px`;
     confettiPiece.style.height = confettiPiece.style.width;
     confettiPiece.style.left = `${Math.random() * 100}vw`;
+    confettiPiece.style.top = `0vh`;
     confettiPiece.style.animationDelay = `${Math.random() * 2000}ms`;
     confettiContainer.appendChild(confettiPiece);
   }
-}
+};
 
 export default startConfetti;
