@@ -25,6 +25,15 @@ function App() {
     showed: false,
   });
 
+  const getName = useCallback(
+    (player) => {
+      return (
+        player.name || t(`players.${player.color.toLowerCase()}Player`)
+      );
+    },
+    [t]
+  );
+
   const checkSetWinner = useCallback((p1, p2, setP1) => {
     if (p1?.points >= 21 && p1?.points - p2?.points >= 2) {
       resetPlayersPoints();
@@ -42,13 +51,13 @@ function App() {
 
     if (playerOne.sets >= 2) {
       winner = {
-        name: playerOne.name ?? `Player ${playerOne.color}`,
+        name: getName(playerOne),
         variant: getVariant(playerOne.color),
         score: `${playerOne.sets} : ${playerTwo.sets}`,
       };
     } else if (playerTwo.sets >= 2) {
       winner = {
-        name: playerTwo.name ?? `Player ${playerTwo.color}`,
+        name: getName(playerTwo),
         variant: getVariant(playerTwo.color),
         score: `${playerTwo.sets} : ${playerOne.sets}`,
       };
@@ -63,7 +72,7 @@ function App() {
       Sounds.winning.play();
       handleOpenModal();
     }
-  }, [playerOne, playerTwo, winnerModal.showed]);
+  }, [playerOne, playerTwo, winnerModal.showed, getName]);
 
   useEffect(() => {
     const updateTitle = () => {
@@ -121,13 +130,6 @@ function App() {
     }
   };
 
-  const getName = (player) => {
-    return (
-      player.name ??
-      `${t("player")} ${t(`colors.${player.color.toLowerCase()}`)}`
-    );
-  };
-
   const speakScore = () => {
     let winningName;
     const scores = [playerOne.points, playerTwo.points];
@@ -169,18 +171,26 @@ function App() {
         <div>
           <Row>
             <Col sm={6} className={`py-3 bg-${getVariant(playerOne.color)}`}>
-              <Counter player={playerOne} setPlayer={setPlayerOne} />
+              <Counter
+                player={playerOne}
+                setPlayer={setPlayerOne}
+                disabled={winnerModal.showed}
+              />
             </Col>
 
             <Col sm={6} className={`py-3 bg-${getVariant(playerTwo.color)}`}>
-              <Counter player={playerTwo} setPlayer={setPlayerTwo} />
+              <Counter
+                player={playerTwo}
+                setPlayer={setPlayerTwo}
+                disabled={winnerModal.showed}
+              />
             </Col>
 
             <Col
               md={12}
               className="py-2 bg-trasnparent d-flex align-items-center justify-content-center"
             >
-              <Stack direction="horizontal" gap={2}>
+              <Stack direction="horizontal" gap={2} className="flex-wrap justify-content-center">
                 <Button
                   className="d-flex justify-content-center align-items-center"
                   onClick={resetPlayersScore}
@@ -232,7 +242,7 @@ function App() {
                     <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25 25 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009l.496.008a64 64 0 0 1 1.51.048m1.39 1.081q.428.032.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a66 66 0 0 1 1.692.064q.491.026.966.06" />
                   </svg>
                 </Button>
-                <Dropdown>
+                <Dropdown drop="up" align={{'md': 'start', 'lg': 'end'}}>
                   <Dropdown.Toggle
                     variant="primary"
                     id="dropdown-language"

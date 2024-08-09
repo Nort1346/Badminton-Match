@@ -2,6 +2,10 @@
   "title": "Badminton",
   "fullTitle": "Badminton Mecz",
   "player": "Gracz",
+  "players": {
+    "bluePlayer": "Gracz Niebieski",
+    "redPlayer": "Gracz Czerwony"
+  },
   "colors": {
     "blue": "Niebieski",
     "red": "Czerwony"

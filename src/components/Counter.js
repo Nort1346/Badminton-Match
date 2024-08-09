@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
  * @param {void} props.setPlayer
  * @returns {JSX.Element}
  */
-function Counter({ player, setPlayer }) {
+function Counter({ player, setPlayer, disabled }) {
   const { t } = useTranslation();
 
   const addPoint = () => {
@@ -63,12 +63,12 @@ function Counter({ player, setPlayer }) {
       <Row md={12} className="mb-3">
         <Form.Control
           type="text"
-          placeholder={`${t('player')} ${t(`colors.${player.color.toLowerCase()}`)}`}
+          placeholder={t(`players.${player.color.toLowerCase()}Player`)}
           size="lg"
           className="border border-0 bg-transparent player-input"
           id={player.color}
           onChange={updateName}
-          value={player.name ?? ""}
+          value={player.name || null}
         />
       </Row>
       <Row md={12} className="d-flex justify-content-center fs-1 fw-bold">
@@ -87,12 +87,12 @@ function Counter({ player, setPlayer }) {
         {player.points}
       </Row>
       <Row md={12} className="my-3">
-        <Button variant={getVariant()} size="lg" onClick={addPoint}>
+        <Button variant={getVariant()} size="lg" onClick={addPoint} disabled={disabled}>
           +
         </Button>
       </Row>
       <Row md={12} className="my-3">
-        <Button variant={getVariant()} size="lg" onClick={removePoint}>
+        <Button variant={getVariant()} size="lg" onClick={removePoint} disabled={disabled}>
           -
         </Button>
       </Row>
@@ -102,6 +102,7 @@ function Counter({ player, setPlayer }) {
             variant={getVariant()}
             className={`w-100 border border-light text-truncate`}
             onClick={addSet}
+            disabled={disabled}
           >
             +&nbsp;{t('set')}
           </Button>
@@ -111,6 +112,7 @@ function Counter({ player, setPlayer }) {
             variant={getVariant()}
             className={`w-100 border border-light text-truncate`}
             onClick={removeSet}
+            disabled={disabled}
           >
             -&nbsp;{t('set')}
           </Button>
