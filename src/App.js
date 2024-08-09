@@ -66,7 +66,7 @@ function App() {
       window.scroll({
         top: 0,
         left: 0,
-        behavior: 'instant'
+        behavior: "instant",
       });
       startConfetti();
       setWinnerModal((prev) => ({
@@ -142,6 +142,18 @@ function App() {
     const p1Points = parseInt(playerOne.points);
     const p2Points = parseInt(playerTwo.points);
 
+    if (playerOne.sets === 2) {
+      const phrase = t("speech.playerWins", {
+        player: getName(playerOne),
+      });
+      return HandleSpeak(phrase);
+    } else if (playerTwo.sets === 2) {
+      const phrase = t("speech.playerWins", {
+        player: getName(playerTwo),
+      });
+      return HandleSpeak(phrase);
+    }
+
     if (p1Points > p2Points) {
       winningName = getName(playerOne);
     } else if (p2Points > p1Points) {
@@ -178,7 +190,7 @@ function App() {
       scoreTwo: scores[1],
       winningName: winningName,
     });
-    HandleSpeak(phrase);
+    return HandleSpeak(phrase);
   };
 
   return (
@@ -264,7 +276,7 @@ function App() {
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
-                    fill="currentColor"
+                    fill="white"
                     className="bi bi-megaphone-fill"
                     viewBox="0 0 16 16"
                   >

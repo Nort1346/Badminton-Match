@@ -13,7 +13,8 @@
   "speech": {
     "draw": "The current score is {{scoreOne}} to {{scoreTwo}}. It's a draw.",
     "score": "The current score is {{scoreOne}} to {{scoreTwo}} in favor of {{winningName}}.",
-    "needPointsToWinSet": "{{player}} needs {{points}} more points to win the set."
+    "needPointsToWinSet": "{{player}} needs {{points}} more points to win the set.",
+    "playerWins": "{{player}} wins! Congratulations!"
   },
   "set": "Set",
   "winnerModal": {

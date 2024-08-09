@@ -13,7 +13,8 @@
   "speech": {
     "draw": "Der aktuelle Stand ist {{scoreOne}} zu {{scoreTwo}}. Es steht unentschieden.",
     "score": "Der aktuelle Stand ist {{scoreOne}} zu {{scoreTwo}} zugunsten von {{winningName}}.",
-    "needPointsToWinSet": "{{player}} fehlen {{points}} Punkte, um den Satz zu gewinnen."
+    "needPointsToWinSet": "{{player}} fehlen {{points}} Punkte, um den Satz zu gewinnen.",
+    "playerWins": "{{player}} gewinnt! Herzlichen Glückwunsch!"
   },
   "set": "Satz",
   "winnerModal": {

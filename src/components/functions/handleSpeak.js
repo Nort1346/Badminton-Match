@@ -24,6 +24,7 @@ const HandleSpeak = (text) => {
       if (selectVoice) {
         utterance.voice = selectVoice;
       }
+      synth.cancel();
       synth.speak(utterance);
     };
 
