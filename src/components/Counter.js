@@ -68,7 +68,7 @@ function Counter({ player, setPlayer, disabled }) {
           className="border border-0 bg-transparent player-input"
           id={player.color}
           onChange={updateName}
-          value={player.name || null}
+          value={player.name || ""}
         />
       </Row>
       <Row md={12} className="d-flex justify-content-center fs-1 fw-bold">

@@ -1,17 +1,40 @@
-import i18n from 'i18next';
+import i18n from "i18next";
 
 const HandleSpeak = (text) => {
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        const lang = i18n.language;
-        console.log(lang);
-        utterance.lang = lang; 
-        utterance.pitch = 1;
-        utterance.rate = 0.9;
-        window.speechSynthesis.speak(utterance);
+  if ("speechSynthesis" in window) {
+    const synth = window.speechSynthesis;
+    const lang = i18n.language;
+    let selectVoice;
+
+    const setVoiceAndSpeak = () => {
+      const voices = synth.getVoices();
+      if (lang === "pl") {
+        selectVoice =
+          voices.find(
+            (voice) =>
+              voice.name ===
+              "Microsoft Marek Online (Natural) - Polish (Poland)"
+          ) || voices.find((voice) => voice.name === "Google polski");
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang;
+      utterance.pitch = 1;
+      utterance.rate = 0.9;
+      if (selectVoice) {
+        utterance.voice = selectVoice;
+      }
+      synth.speak(utterance);
+    };
+
+    if (synth.getVoices().length) {
+      setVoiceAndSpeak();
     } else {
-        alert('Your browser does not support speech synthesizer.');
+      synth.onvoiceschanged = setVoiceAndSpeak;
     }
+  } else {
+    console.log("Web Speech API is not supported in this browser.");
+  }
 };
 
 export default HandleSpeak;
