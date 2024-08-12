@@ -83,11 +83,11 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
         </Col>
         <Col
           xs={"auto"}
-          className="d-flex align-items-center justify-content-start p-0 ps-1"
+          className="d-flex align-items-center justify-content-start p-0 px-1"
         >
           <Shuttle
-            width="22"
-            height="22"
+            width="20"
+            height="20"
             className={player.color !== servingPlayer.color && "d-none"}
           />
         </Col>

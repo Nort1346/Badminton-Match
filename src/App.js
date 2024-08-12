@@ -75,6 +75,7 @@ function App() {
       }));
       Sounds.winning.play();
       handleOpenModal();
+      setServingPlayer((prev) => null);
     }
   }, [playerOne, playerTwo, winnerModal.showed, getName]);
 

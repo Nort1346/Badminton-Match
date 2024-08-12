@@ -2,8 +2,6 @@ const startConfetti = () => {
   const confettiContainer = document.getElementById("confetti");
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-
-  confettiContainer.style.height = `${window.innerHeight}px`;
   confettiContainer.innerHTML = "";
 
   const numberOfConfetti = 225;
