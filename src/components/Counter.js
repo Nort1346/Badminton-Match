@@ -11,20 +11,27 @@ import Player from "./classes/Player";
 import Sounds from "../Sounds";
 import { useTranslation } from "react-i18next";
 import Colors from "./enums/Colors";
+import { ReactComponent as Shuttle } from "./icons/shuttle.svg";
 
 /**
  * @param {Object} props
  * @param {Player} props.player
  * @param {void} props.setPlayer
+ * @param {{color: Colors, set: void}} props.servingPlayer
  * @returns {JSX.Element}
  */
-function Counter({ player, setPlayer, disabled }) {
+function Counter({ player, setPlayer, servingPlayer, disabled }) {
   const { t } = useTranslation();
+
+  const setServingPlayerColor = () => {
+    servingPlayer.set((prev) => player.color);
+  };
 
   const addPoint = () => {
     if (player.sets >= 2) return;
     setPlayer((prev) => ({ ...prev, points: player.points + 1 }));
     Sounds.point.play();
+    setServingPlayerColor();
   };
 
   const removePoint = () => {
@@ -36,6 +43,7 @@ function Counter({ player, setPlayer, disabled }) {
     if (player.sets >= 2) return;
     if (player.sets === 0) Sounds.set.play();
     setPlayer((prev) => ({ ...prev, sets: player.sets + 1 }));
+    if (player.points === 0) setServingPlayerColor();
   };
 
   const removeSet = () => {
@@ -61,18 +69,30 @@ function Counter({ player, setPlayer, disabled }) {
 
   return (
     <Container fluid className="m-0 p-3">
-      <Row md={12} className="mb-3">
-        <Form.Control
-          type="text"
-          placeholder={t(`players.${player.color.toLowerCase()}Player`)}
-          size="lg"
-          className="border border-0 bg-transparent player-input"
-          id={player.color}
-          onChange={updateName}
-          value={player.name || ""}
-        />
+      <Row md={12} className="mb-3 d-flex justify-content-center">
+        <Col xs={"auto"} className="p-0">
+          <Form.Control
+            type="text"
+            placeholder={t(`players.${player.color.toLowerCase()}Player`)}
+            size="lg"
+            className="border border-0 bg-transparent player-input p-0"
+            id={player.color}
+            onChange={updateName}
+            value={player.name || ""}
+          />
+        </Col>
+        <Col
+          xs={"auto"}
+          className="d-flex align-items-center justify-content-start p-0 ps-1"
+        >
+          <Shuttle
+            width="22"
+            height="22"
+            className={player.color !== servingPlayer.color && "d-none"}
+          />
+        </Col>
       </Row>
-      <Row md={12} className="d-flex justify-content-center fs-1 fw-bold">
+      <Row md={12} className="d-flex justify-content-center fs-1 fw-bold pe-1">
         <ProgressBar
           now={player.sets}
           min={0}

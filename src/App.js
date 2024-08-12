@@ -12,11 +12,13 @@ import { changeLanguage } from "i18next";
 import startConfetti from "./components/functions/startConfetti.js";
 import Colors from "./components/enums/Colors.js";
 import toggleFullScreen from "./components/functions/toggleFullScreen.js";
+import getRandomColor from "./components/functions/getRandomColor.js";
 
 function App() {
   const { t } = useTranslation();
   const [playerOne, setPlayerOne] = useState(new Player(Colors.Red));
   const [playerTwo, setPlayerTwo] = useState(new Player(Colors.Blue));
+  const [servingPlayer, setServingPlayer] = useState(getRandomColor());
   const [winnerModal, setWinnerModal] = useState({
     show: false,
     info: {},
@@ -113,6 +115,7 @@ function App() {
       ...prev,
       showed: false,
     }));
+    setServingPlayer((prev) => getRandomColor())
   };
 
   const resetPlayersPoints = () => {
@@ -208,6 +211,7 @@ function App() {
                 player={playerOne}
                 setPlayer={setPlayerOne}
                 disabled={winnerModal.showed}
+                servingPlayer={{color: servingPlayer, set: setServingPlayer}}
               />
             </Col>
 
@@ -216,6 +220,7 @@ function App() {
                 player={playerTwo}
                 setPlayer={setPlayerTwo}
                 disabled={winnerModal.showed}
+                servingPlayer={{color: servingPlayer, set: setServingPlayer}}
               />
             </Col>
 
