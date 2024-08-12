@@ -7,9 +7,10 @@ import {
   ProgressBar,
 } from "react-bootstrap";
 // eslint-disable-next-line
-import Player from "../classes/Player";
+import Player from "./classes/Player";
 import Sounds from "../Sounds";
 import { useTranslation } from "react-i18next";
+import Colors from "./enums/Colors";
 
 /**
  * @param {Object} props
@@ -43,11 +44,11 @@ function Counter({ player, setPlayer, disabled }) {
   };
 
   const getVariant = () => {
-    const color = player.color.toLowerCase();
+    const color = player.color;
     switch (color) {
-      case "red":
+      case Colors.Red:
         return "primary";
-      case "blue":
+      case Colors.Blue:
         return "danger";
       default:
         return "primary";
@@ -76,23 +77,36 @@ function Counter({ player, setPlayer, disabled }) {
           now={player.sets}
           min={0}
           max={2}
-          label={`${player.sets} ${t('set')}`}
+          label={`${player.sets} ${t("set")}`}
           striped={true}
           animated={true}
           variant="success"
           className="p-0"
         />
       </Row>
-      <Row md={12} className="my-5 d-flex justify-content-center align-items-center fs-1 fw-bold">
+      <Row
+        md={12}
+        className="my-5 d-flex justify-content-center align-items-center fs-1 fw-bold"
+      >
         {player.points}
       </Row>
       <Row md={12} className="my-3">
-        <Button variant={getVariant()} size="lg" onClick={addPoint} disabled={disabled}>
+        <Button
+          variant={getVariant()}
+          size="lg"
+          onClick={addPoint}
+          disabled={disabled}
+        >
           +
         </Button>
       </Row>
       <Row md={12} className="my-3">
-        <Button variant={getVariant()} size="lg" onClick={removePoint} disabled={disabled}>
+        <Button
+          variant={getVariant()}
+          size="lg"
+          onClick={removePoint}
+          disabled={disabled}
+        >
           -
         </Button>
       </Row>
@@ -104,7 +118,7 @@ function Counter({ player, setPlayer, disabled }) {
             onClick={addSet}
             disabled={disabled}
           >
-            +&nbsp;{t('set')}
+            +&nbsp;{t("set")}
           </Button>
         </Col>
         <Col xs={6}>
@@ -114,7 +128,7 @@ function Counter({ player, setPlayer, disabled }) {
             onClick={removeSet}
             disabled={disabled}
           >
-            -&nbsp;{t('set')}
+            -&nbsp;{t("set")}
           </Button>
         </Col>
       </Row>

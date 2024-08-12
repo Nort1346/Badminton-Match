@@ -3,18 +3,14 @@ import { Row, Col, Container, Button, Stack, Dropdown } from "react-bootstrap";
 import Counter from "./components/Counter";
 import React, { useState, useEffect, useCallback } from "react";
 import Footer from "./components/Footer";
-import Player from "./classes/Player";
+import Player from "./components/classes/Player.js";
 import WinnerModal from "./components/WinnerModal";
 import Sounds from "./Sounds";
 import HandleSpeak from "./components/functions/handleSpeak.js";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
 import startConfetti from "./components/functions/startConfetti.js";
-
-const Colors = {
-  Red: "Red",
-  Blue: "Blue",
-};
+import Colors from "./components/enums/Colors.js";
 
 function App() {
   const { t } = useTranslation();
@@ -124,11 +120,10 @@ function App() {
   };
 
   const getVariant = (color) => {
-    const colorLow = color.toLowerCase();
-    switch (colorLow) {
-      case "red":
+    switch (color) {
+      case Colors.Red:
         return "danger";
-      case "blue":
+      case Colors.Blue:
         return "primary";
       default:
         return "primary";
@@ -139,8 +134,8 @@ function App() {
     let winningName;
     const scores = [playerOne.points, playerTwo.points];
     scores.sort((a, b) => b - a);
-    const p1Points = parseInt(playerOne.points);
-    const p2Points = parseInt(playerTwo.points);
+    const p1Points = playerOne.points;
+    const p2Points = playerTwo.points;
 
     if (playerOne.sets === 2) {
       const phrase = t("speech.playerWins", {
@@ -158,7 +153,7 @@ function App() {
       winningName = getName(playerOne);
     } else if (p2Points > p1Points) {
       winningName = getName(playerTwo);
-    } else {
+    } else if (p1Points === p2Points) {
       const phrase = t("speech.draw", {
         scoreOne: scores[0],
         scoreTwo: scores[1],
