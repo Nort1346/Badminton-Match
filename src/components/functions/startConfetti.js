@@ -15,7 +15,7 @@ const startConfetti = () => {
     confettiPiece.style.width = `${Math.random() * 10 + 5}px`;
     confettiPiece.style.height = confettiPiece.style.width;
     confettiPiece.style.left = `${Math.random() * 100}vw`;
-    confettiPiece.style.top = `0vh`;
+    confettiPiece.style.top = `0`;
     confettiPiece.style.animationDelay = `${Math.random() * 2000}ms`;
     confettiContainer.appendChild(confettiPiece);
   }

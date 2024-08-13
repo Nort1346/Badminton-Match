@@ -8,10 +8,11 @@ import {
 } from "react-bootstrap";
 // eslint-disable-next-line
 import Player from "./classes/Player";
-import Sounds from "../Sounds";
+import playSound from "./functions/playSound";
 import { useTranslation } from "react-i18next";
 import Colors from "./enums/Colors";
 import { ReactComponent as Shuttle } from "./icons/shuttle.svg";
+import Sounds from "./enums/Sounds";
 
 /**
  * @param {Object} props
@@ -30,7 +31,7 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
   const addPoint = () => {
     if (player.sets >= 2) return;
     setPlayer((prev) => ({ ...prev, points: player.points + 1 }));
-    Sounds.point.play();
+    playSound(Sounds.Point);
     setServingPlayerColor();
   };
 
@@ -41,7 +42,7 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
 
   const addSet = () => {
     if (player.sets >= 2) return;
-    if (player.sets === 0) Sounds.set.play();
+    if (player.sets === 0) playSound(Sounds.Set);
     setPlayer((prev) => ({ ...prev, sets: player.sets + 1 }));
     if (player.points === 0) setServingPlayerColor();
   };
@@ -88,7 +89,7 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
           <Shuttle
             width="20"
             height="20"
-            className={player.color !== servingPlayer.color && "d-none"}
+            className={player.color !== servingPlayer.color ? "d-none" : undefined}
           />
         </Col>
       </Row>

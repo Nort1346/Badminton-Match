@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Footer from "./components/Footer";
 import Player from "./components/classes/Player.js";
 import WinnerModal from "./components/WinnerModal";
-import Sounds from "./Sounds";
+import playSound from "./components/functions/playSound.js";
 import HandleSpeak from "./components/functions/handleSpeak.js";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
@@ -13,6 +13,7 @@ import startConfetti from "./components/functions/startConfetti.js";
 import Colors from "./components/enums/Colors.js";
 import toggleFullScreen from "./components/functions/toggleFullScreen.js";
 import getRandomColor from "./components/functions/getRandomColor.js";
+import Sounds from "./components/enums/Sounds.js";
 
 function App() {
   const { t } = useTranslation();
@@ -37,7 +38,7 @@ function App() {
       resetPlayersPoints();
       setP1((prev) => ({ ...prev, sets: p1.sets + 1 }));
       if (p1.sets < 1) {
-        Sounds.set.play();
+        playSound(Sounds.Set);
       }
     }
   }, []);
@@ -73,9 +74,10 @@ function App() {
         info: winner,
         showed: true,
       }));
-      Sounds.winning.play();
+      playSound(Sounds.Winning);
       handleOpenModal();
       setServingPlayer((prev) => null);
+      resetPlayersPoints();
     }
   }, [playerOne, playerTwo, winnerModal.showed, getName]);
 
