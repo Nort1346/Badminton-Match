@@ -77,7 +77,7 @@ body {
 
 @keyframes fall {
   0% {
-    transform: translateY(-100dvh) rotate(0deg);
+    transform: translateY(-100lvh) rotate(0deg);
     opacity: 0;
   }
   1% {
@@ -87,7 +87,7 @@ body {
     opacity: 0.2;
   }
   100% {
-    transform: translateY(100dvh) rotate(800deg);
+    transform: translateY(105lvh) rotate(800deg);
     opacity: 0;
   }
 }
