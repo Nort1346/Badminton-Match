@@ -69,9 +69,24 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
   };
 
   return (
-    <Container fluid className="m-0 p-3">
+    <Container fluid className="m-0 p-3 pt-0">
       <Row md={12} className="mb-3 d-flex justify-content-center">
-        <Col xs={"auto"} className="p-0">
+        <Col
+          xs={12}
+          className="d-flex align-items-center justify-content-center"
+        >
+          <Shuttle
+            width="15"
+            height="15"
+            className={
+              player.color !== servingPlayer.color ? "d-block" : undefined
+            }
+            style={{
+              opacity: player.color !== servingPlayer.color ? 0 : 1,
+            }}
+          />
+        </Col>
+        <Col xs={12} className="p-0">
           <Form.Control
             type="text"
             placeholder={t(`players.${player.color.toLowerCase()}Player`)}
@@ -80,16 +95,6 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
             id={player.color}
             onChange={updateName}
             value={player.name || ""}
-          />
-        </Col>
-        <Col
-          xs={"auto"}
-          className="d-flex align-items-center justify-content-start p-0 px-1"
-        >
-          <Shuttle
-            width="20"
-            height="20"
-            className={player.color !== servingPlayer.color ? "d-none" : undefined}
           />
         </Col>
       </Row>
