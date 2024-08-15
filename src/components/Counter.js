@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import Colors from "./enums/Colors";
 import { ReactComponent as Shuttle } from "./icons/shuttle.svg";
 import Sounds from "./enums/Sounds";
+import fetchSets from "./functions/fetchSets";
 
 /**
  * @param {Object} props
@@ -29,7 +30,7 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
   };
 
   const addPoint = () => {
-    if (player.sets >= 2) return;
+    if (player.sets >= fetchSets()) return;
     setPlayer((prev) => ({ ...prev, points: player.points + 1 }));
     playSound(Sounds.Point);
     setServingPlayerColor();
@@ -41,7 +42,8 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
   };
 
   const addSet = () => {
-    if (player.sets >= 2) return;
+    const sets = fetchSets();
+    if (player.sets >= sets) return;
     if (player.sets === 0) playSound(Sounds.Set);
     setPlayer((prev) => ({ ...prev, sets: player.sets + 1 }));
     if (player.points === 0) setServingPlayerColor();
@@ -102,7 +104,7 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
         <ProgressBar
           now={player.sets}
           min={0}
-          max={2}
+          max={fetchSets()}
           label={`${player.sets} ${t("set")}`}
           striped={true}
           animated={true}

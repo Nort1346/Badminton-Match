@@ -21,5 +21,12 @@
     "title": "{{playerName}} gewinnt!",
     "close": "Schließen",
     "confirm": "Bestätigen"
+  },
+  "settingModal": {
+    "settings": "Einstellungen",
+    "sets": "Sätze",
+    "points": "Punkte",
+    "leadPoints": "Vorsprungspunkte",
+    "resetDefault": "Auf Standard Zurücksetzen"
   }
 }

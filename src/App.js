@@ -14,6 +14,10 @@ import Colors from "./components/enums/Colors.js";
 import toggleFullScreen from "./components/functions/toggleFullScreen.js";
 import getRandomColor from "./components/functions/getRandomColor.js";
 import Sounds from "./components/enums/Sounds.js";
+import SettingModal from "./components/SettingModal";
+import fetchPoints from "./components/functions/fetchPoints";
+import fetchLeadPoints from "./components/functions/fetchLeadPoints";
+import fetchSets from "./components/functions/fetchSets";
 
 function App() {
   const { t } = useTranslation();
@@ -25,6 +29,7 @@ function App() {
     info: {},
     showed: false,
   });
+  const [settingModal, setSettingModal] = useState(false);
 
   const getName = useCallback(
     (player) => {
@@ -34,10 +39,11 @@ function App() {
   );
 
   const checkSetWinner = useCallback((p1, p2, setP1) => {
-    if (p1?.points >= 21 && p1?.points - p2?.points >= 2) {
+    const points = fetchPoints();
+    if (p1?.points >= points && p1?.points - p2?.points >= fetchLeadPoints()) {
       resetPlayersPoints();
       setP1((prev) => ({ ...prev, sets: p1.sets + 1 }));
-      if (p1.sets < 1) {
+      if (p1.sets < fetchSets() - 1) {
         playSound(Sounds.Set);
       }
     }
@@ -47,14 +53,15 @@ function App() {
     let winner = null;
 
     if (winnerModal.showed) return;
+    const sets = fetchSets();
 
-    if (playerOne.sets >= 2) {
+    if (playerOne.sets >= sets) {
       winner = {
         name: getName(playerOne),
         variant: getVariant(playerOne.color),
         score: `${playerOne.sets} : ${playerTwo.sets}`,
       };
-    } else if (playerTwo.sets >= 2) {
+    } else if (playerTwo.sets >= sets) {
       winner = {
         name: getName(playerTwo),
         variant: getVariant(playerTwo.color),
@@ -75,7 +82,7 @@ function App() {
         showed: true,
       }));
       playSound(Sounds.Winning);
-      handleOpenModal();
+      handleOpenWinnerModal();
       setServingPlayer((prev) => null);
       resetPlayersPoints();
     }
@@ -98,12 +105,19 @@ function App() {
     updateTitle();
   }, [playerOne, playerTwo, checkSetWinner, checkWinner, t]);
 
-  const handleOpenModal = () =>
+  const handleOpenWinnerModal = () =>
     setWinnerModal((prev) => ({ ...prev, show: true }));
 
-  const handleCloseModal = (reset) => {
+  const handleCloseWinnerModal = (reset) => {
     if (reset) resetPlayersScore();
     setWinnerModal((prev) => ({ ...prev, show: false }));
+  };
+
+  const handleOpenSettingModal = () =>
+    setSettingModal((prev) => (true));
+
+  const handleCloseSettingModal = () => {
+    setSettingModal((prev) => (false));
   };
 
   const invertPlayers = () => {
@@ -143,13 +157,16 @@ function App() {
     scores.sort((a, b) => b - a);
     const p1Points = playerOne.points;
     const p2Points = playerTwo.points;
+    const sets = fetchSets();
+    const points = fetchPoints();
+    const leadPoints = fetchLeadPoints();
 
-    if (playerOne.sets === 2) {
+    if (playerOne.sets === sets) {
       const phrase = t("speech.playerWins", {
         player: getName(playerOne),
       });
       return HandleSpeak(phrase);
-    } else if (playerTwo.sets === 2) {
+    } else if (playerTwo.sets === sets) {
       const phrase = t("speech.playerWins", {
         player: getName(playerTwo),
       });
@@ -169,17 +186,15 @@ function App() {
     }
 
     const pointsSubtraction = scores[0] - scores[1];
-    const pointsToWin = 21;
-    const advantagePoints = 2;
     const pointsNeeded =
-      scores[0] >= pointsToWin && pointsSubtraction >= advantagePoints
+      scores[0] >= points && pointsSubtraction >= leadPoints
         ? 0
         : Math.max(
-            pointsToWin - scores[0],
-            advantagePoints - pointsSubtraction
-          );
+          points - scores[0],
+          leadPoints - pointsSubtraction
+        );
 
-    if (pointsNeeded <= 2 && pointsNeeded >= 1) {
+    if (pointsNeeded <= leadPoints && pointsNeeded >= 1) {
       const phrase = t("speech.needPointsToWinSet", {
         player: winningName,
         points: pointsNeeded,
@@ -200,8 +215,12 @@ function App() {
       <div id="confetti"></div>
       <WinnerModal
         isShow={winnerModal.show}
-        onClose={handleCloseModal}
+        onClose={handleCloseWinnerModal}
         info={winnerModal.info}
+      />
+      <SettingModal
+        isShow={settingModal}
+        onClose={handleCloseSettingModal}
       />
       <Container fluid className="m-0">
         <div className="d-flex justify-content-center fs-2 fw-bolder">
@@ -214,7 +233,7 @@ function App() {
                 player={playerOne}
                 setPlayer={setPlayerOne}
                 disabled={winnerModal.showed}
-                servingPlayer={{color: servingPlayer, set: setServingPlayer}}
+                servingPlayer={{ color: servingPlayer, set: setServingPlayer }}
               />
             </Col>
 
@@ -223,7 +242,7 @@ function App() {
                 player={playerTwo}
                 setPlayer={setPlayerTwo}
                 disabled={winnerModal.showed}
-                servingPlayer={{color: servingPlayer, set: setServingPlayer}}
+                servingPlayer={{ color: servingPlayer, set: setServingPlayer }}
               />
             </Col>
 
@@ -301,6 +320,15 @@ function App() {
                     viewBox="0 0 16 16"
                   >
                     <path d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5M.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5" />
+                  </svg>
+                </Button>
+                <Button
+                  className="d-flex justify-content-center align-items-center"
+                  onClick={handleOpenSettingModal}
+                  size="lg"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-sliders2" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
                   </svg>
                 </Button>
                 <Dropdown drop="up" align={{ md: "start" }}>
