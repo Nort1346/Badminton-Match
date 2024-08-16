@@ -27,6 +27,8 @@
     "sets": "Sets",
     "points": "Points",
     "leadPoints": "Lead Points",
-    "resetDefault": "Reset To Defaults"
+    "resetDefault": "Reset To Defaults",
+    "apply": "Apply",
+    "cancel": "Cancel"
   }
 }

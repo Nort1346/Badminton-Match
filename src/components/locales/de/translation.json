@@ -27,6 +27,8 @@
     "sets": "Sätze",
     "points": "Punkte",
     "leadPoints": "Vorsprungspunkte",
-    "resetDefault": "Auf Standard Zurücksetzen"
+    "resetDefault": "Auf Standard Zurücksetzen",
+    "apply": "Anwenden",
+    "cancel": "Abbrechen"
   }
 }

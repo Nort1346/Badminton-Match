@@ -15,36 +15,47 @@ function SettingModal({ isShow, onClose }) {
     const [leadPoints, setLeadPoints] = useState(fetchLeadPoints());
 
     useEffect(() => {
+        const loadData = () => {
+            setSets(fetchSets());
+            setPoints(fetchPoints());
+            setLeadPoints(fetchLeadPoints());
+        }
+
+        if (isShow) {
+            loadData();
+        }
         setShow(isShow);
     }, [isShow]);
 
-    const handleClose = () => {
+    const handleClose = (changes) => {
         setShow(false);
-        if (onClose) onClose();
+        if (onClose) onClose(changes ?? false);
     };
 
     const handleSetsChange = (e) => {
         setSets(e.target.value);
-        localStorage.setItem(GameSettingType.Sets, e.target.value);
     };
 
     const handlePointsChange = (e) => {
         setPoints(e.target.value);
-        localStorage.setItem(GameSettingType.Points, e.target.value);
     };
 
     const handleLeadPointsChange = (e) => {
         setLeadPoints(e.target.value);
-        localStorage.setItem(GameSettingType.LeadPoint, e.target.value);
     };
 
     const resetToDefaults = () => {
         setSets(DefaultValues.SETS);
         setPoints(DefaultValues.POINTS);
         setLeadPoints(DefaultValues.LEAD_POINTS);
-        localStorage.setItem(GameSettingType.Sets, DefaultValues.SETS);
-        localStorage.setItem(GameSettingType.Points, DefaultValues.POINTS);
-        localStorage.setItem(GameSettingType.LeadPoint, DefaultValues.LEAD_POINTS);
+    }
+
+    const applyChanges = () => {
+        let changes = !(fetchSets() === sets && fetchPoints() === points && fetchLeadPoints() === leadPoints);
+        localStorage.setItem(GameSettingType.Sets, sets);
+        localStorage.setItem(GameSettingType.Points, points);
+        localStorage.setItem(GameSettingType.LeadPoint, leadPoints);
+        handleClose(changes);
     }
 
     return (
@@ -72,11 +83,14 @@ function SettingModal({ isShow, onClose }) {
                 <Form.Range max={20} min={0} defaultValue={2} value={leadPoints} onChange={handleLeadPointsChange} />
             </Modal.Body>
             <Modal.Footer className="border-0 pt-0">
-                <Button variant="primary" onClick={resetToDefaults}>
+                <Button variant="danger" onClick={resetToDefaults}>
                     {t("settingModal.resetDefault")}
                 </Button>
+                <Button variant="primary" onClick={applyChanges}>
+                    {t("settingModal.apply")}
+                </Button>
                 <Button variant="secondary" onClick={handleClose}>
-                    {t("winnerModal.close")}
+                    {t("settingModal.cancel")}
                 </Button>
             </Modal.Footer>
         </Modal>

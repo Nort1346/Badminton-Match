@@ -116,7 +116,8 @@ function App() {
   const handleOpenSettingModal = () =>
     setSettingModal((prev) => (true));
 
-  const handleCloseSettingModal = () => {
+  const handleCloseSettingModal = (reset) => {
+    if (reset) resetPlayersScore();
     setSettingModal((prev) => (false));
   };
 

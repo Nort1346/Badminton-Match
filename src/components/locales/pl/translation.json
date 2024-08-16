@@ -27,6 +27,8 @@
     "sets": "Sety",
     "points": "Punkty",
     "leadPoints": "Punkty Przewagi",
-    "resetDefault": "Przywróć Domyślne"
+    "resetDefault": "Przywróć Domyślne",
+    "apply": "Zastosuj",
+    "cancel": "Anuluj"
   }
 }
