@@ -30,5 +30,11 @@
     "resetDefault": "Reset To Defaults",
     "apply": "Apply",
     "cancel": "Cancel"
+  },
+  "historyModal": {
+    "history": "History",
+    "close": "Close",
+    "historyWillAppearHere": "Your history will appear here",
+    "clear": "Clear"
   }
 }

@@ -30,5 +30,11 @@
     "resetDefault": "Auf Standard Zurücksetzen",
     "apply": "Anwenden",
     "cancel": "Abbrechen"
+  },
+  "historyModal": {
+    "history": "Geschichte",
+    "close": "Schließen",
+    "historyWillAppearHere": "Deine Historie wird hier angezeigt",
+    "clear": "Löschen"
   }
 }
