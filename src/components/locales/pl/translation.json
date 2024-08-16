@@ -21,5 +21,14 @@
     "title": "{{playerName}} Wygrywa!",
     "close": "Zamknij",
     "confirm": "Potwierdź"
+  },
+  "settingModal": {
+    "settings": "Ustawienia",
+    "sets": "Sety",
+    "points": "Punkty",
+    "leadPoints": "Punkty Przewagi",
+    "resetDefault": "Przywróć Domyślne",
+    "apply": "Zastosuj",
+    "cancel": "Anuluj"
   }
 }

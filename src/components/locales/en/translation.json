@@ -21,5 +21,14 @@
     "title": "{{playerName}} Wins!",
     "close": "Close",
     "confirm": "Confirm"
+  },
+  "settingModal": {
+    "settings": "Settings",
+    "sets": "Sets",
+    "points": "Points",
+    "leadPoints": "Lead Points",
+    "resetDefault": "Reset To Defaults",
+    "apply": "Apply",
+    "cancel": "Cancel"
   }
 }
