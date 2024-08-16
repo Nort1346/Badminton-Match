@@ -6,10 +6,13 @@ import getVariantColor from "./functions/getVariantColor";
 function HistoryModal({ isShow, onClose }) {
     const { t } = useTranslation();
     const [show, setShow] = useState(isShow);
-    const history = JSON.parse(localStorage.getItem("HISTORY")) ?? [];
+    const [history, setHistory] = useState(JSON.parse(localStorage.getItem("HISTORY")) ?? []);
 
     useEffect(() => {
         setShow(isShow);
+        if (isShow) {
+            setHistory(JSON.parse(localStorage.getItem("HISTORY")) ?? []);
+        }
     }, [isShow]);
 
     const handleClose = (changes) => {
@@ -24,6 +27,11 @@ function HistoryModal({ isShow, onClose }) {
     const getVariant = (match) => {
         const winner = match[0].sets > match[1].sets ? match[0] : match[1];
         return getVariantColor(winner.color);
+    }
+
+    const resetHistory = () => {
+        localStorage.removeItem("HISTORY");
+        setHistory([]);
     }
 
     return (
@@ -45,7 +53,7 @@ function HistoryModal({ isShow, onClose }) {
                 <ListGroup>
                     {history.map((match, index) => (
                         <ListGroup.Item key={`history-${index}`} className={`d-flex flex-column align-items-center bg-${getVariant(match)} overflow-y-hidden`}>
-                            <Row md={12} className="text-truncate">
+                            <Row md={12} className="text-wrap text-center">
                                 {`${getName(match[0])} vs ${getName(match[1])}`}
                             </Row>
                             <Row md={12}>
@@ -54,8 +62,12 @@ function HistoryModal({ isShow, onClose }) {
                         </ListGroup.Item>
                     ))}
                 </ListGroup>
+                {history.length === 0 && t('historyModal.historyWillAppearHere')}
             </Modal.Body>
             <Modal.Footer className="border-0 pt-0">
+                <Button variant="danger" onClick={resetHistory}>
+                    {t("historyModal.clear")}
+                </Button>
                 <Button variant="secondary" onClick={handleClose}>
                     {t("historyModal.close")}
                 </Button>

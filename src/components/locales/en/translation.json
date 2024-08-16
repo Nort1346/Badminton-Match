@@ -33,6 +33,8 @@
   },
   "historyModal": {
     "history": "History",
-    "close": "Close"
+    "close": "Close",
+    "historyWillAppearHere": "Your history will appear here",
+    "clear": "Clear"
   }
 }
