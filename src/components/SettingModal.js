@@ -73,14 +73,14 @@ function SettingModal({ isShow, onClose }) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="fs-5 fw-semibold text-left">
-                <Form.Label>{t('settingModal.sets')}&nbsp;<span className="text-primary fw-bolder">{sets}</span></Form.Label>
-                <Form.Range max={5} min={1} defaultValue={2} value={sets} onChange={handleSetsChange} />
+                <Form.Label htmlFor="sets">{t('settingModal.sets')}&nbsp;<span className="text-primary fw-bolder">{sets}</span></Form.Label>
+                <Form.Range name="sets" max={5} min={1} value={sets} onChange={handleSetsChange} />
 
-                <Form.Label>{t('settingModal.points')}&nbsp;<span className="text-primary fw-bolder">{points}</span></Form.Label>
-                <Form.Range max={99} min={1} defaultValue={21} value={points} onChange={handlePointsChange} />
+                <Form.Label htmlFor="points">{t('settingModal.points')}&nbsp;<span className="text-primary fw-bolder">{points}</span></Form.Label>
+                <Form.Range name="points" max={99} min={1} value={points} onChange={handlePointsChange} />
 
-                <Form.Label>{t('settingModal.leadPoints')}&nbsp;<span className="text-primary fw-bolder">{leadPoints}</span></Form.Label>
-                <Form.Range max={20} min={0} defaultValue={2} value={leadPoints} onChange={handleLeadPointsChange} />
+                <Form.Label htmlFor="lead-points">{t('settingModal.leadPoints')}&nbsp;<span className="text-primary fw-bolder">{leadPoints}</span></Form.Label>
+                <Form.Range name="lead-points" max={20} min={0} value={leadPoints} onChange={handleLeadPointsChange} />
             </Modal.Body>
             <Modal.Footer className="border-0 pt-0">
                 <Button variant="danger" onClick={resetToDefaults}>
