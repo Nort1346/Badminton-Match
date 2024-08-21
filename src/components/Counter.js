@@ -80,9 +80,6 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
           <Shuttle
             width="15"
             height="15"
-            className={
-              player.color !== servingPlayer.color ? "d-block" : undefined
-            }
             style={{
               opacity: player.color !== servingPlayer.color ? 0 : 1,
             }}

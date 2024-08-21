@@ -89,7 +89,7 @@ function App() {
       setServingPlayer((prev) => null);
       const matchObject = [
         { name: playerOne.name, sets: playerOne.sets, color: playerOne.color },
-        { name: playerTwo.name, sets: playerTwo.sets, color: playerTwo.color }
+        { name: playerTwo.name, sets: playerTwo.sets, color: playerTwo.color },
       ];
       const history = JSON.parse(localStorage.getItem("HISTORY")) ?? [];
       history.unshift(matchObject);
@@ -124,19 +124,17 @@ function App() {
     setWinnerModal((prev) => ({ ...prev, show: false }));
   };
 
-  const handleOpenSettingModal = () =>
-    setSettingModal((prev) => (true));
+  const handleOpenSettingModal = () => setSettingModal((prev) => true);
 
   const handleCloseSettingModal = (reset) => {
     if (reset) resetPlayersScore();
-    setSettingModal((prev) => (false));
+    setSettingModal((prev) => false);
   };
 
-  const handleOpenHistoryModal = () =>
-    setHistoryModal((prev) => (true));
+  const handleOpenHistoryModal = () => setHistoryModal((prev) => true);
 
   const handleCloseHistoryModal = () => {
-    setHistoryModal((prev) => (false));
+    setHistoryModal((prev) => false);
   };
 
   const invertPlayers = () => {
@@ -151,7 +149,7 @@ function App() {
       ...prev,
       showed: false,
     }));
-    setServingPlayer((prev) => getRandomColor())
+    setServingPlayer((prev) => getRandomColor());
   };
 
   const resetPlayersPoints = () => {
@@ -208,10 +206,7 @@ function App() {
     const pointsNeeded =
       scores[0] >= points && pointsSubtraction >= leadPoints
         ? 0
-        : Math.max(
-          points - scores[0],
-          leadPoints - pointsSubtraction
-        );
+        : Math.max(points - scores[0], leadPoints - pointsSubtraction);
 
     if (pointsNeeded <= leadPoints && pointsNeeded >= 1) {
       const phrase = t("speech.needPointsToWinSet", {
@@ -237,14 +232,8 @@ function App() {
         onClose={handleCloseWinnerModal}
         info={winnerModal.info}
       />
-      <SettingModal
-        isShow={settingModal}
-        onClose={handleCloseSettingModal}
-      />
-      <HistoryModal
-        isShow={historyModal}
-        onClose={handleCloseHistoryModal}
-      />
+      <SettingModal isShow={settingModal} onClose={handleCloseSettingModal} />
+      <HistoryModal isShow={historyModal} onClose={handleCloseHistoryModal} />
       <Container fluid className="m-0">
         <div className="d-flex justify-content-center fs-2 fw-bolder">
           {t("title")}
