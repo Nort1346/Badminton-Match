@@ -29,7 +29,7 @@ function SettingModal({ isShow, onClose }) {
 
     const handleClose = (changes) => {
         setShow(false);
-        if (onClose) onClose(changes ?? false);
+        if (onClose) onClose(changes === true);
     };
 
     const handleSetsChange = (e) => {
