@@ -1,7 +1,19 @@
 {
   "name": "badminton-match",
-  "version": "0.1.1",
-  "private": true,
+  "description": "An app for tracking and managing badminton matches.",
+  "keywords": [
+    "badminton",
+    "match",
+    "tracking",
+    "management",
+    "sports",
+    "app",
+    "web"
+  ],
+  "author": "Nort1346",
+  "version": "0.1.11",
+  "private": false,
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -21,7 +33,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",   
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
