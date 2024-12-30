@@ -11,9 +11,13 @@
     "web"
   ],
   "author": "Nort1346",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "private": false,
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nort1346/badminton-match.git"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
