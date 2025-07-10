@@ -1,4 +1,4 @@
-import Colors from "../enums/Colors";
+import Colors from "@/enums/Colors";
 
 const getRandomColor = () => {
   const random = Math.floor(Math.random() * 2 + 1);

@@ -1,7 +1,7 @@
 import { Dropdown } from "react-bootstrap";
 import { changeLanguage } from "i18next";
 
-const LanguageButton = ({ onClick }) => {
+const LanguageButton = () => {
     return (
         <Dropdown drop="up" align={{ md: "start" }}>
             <Dropdown.Toggle

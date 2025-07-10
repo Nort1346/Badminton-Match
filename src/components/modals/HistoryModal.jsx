@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, ListGroup, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import getVariantColor from "./functions/getVariantColor";
+import getVariantColor from "@/functions/getVariantColor";
 
 function HistoryModal({ isShow, onClose }) {
     const { t } = useTranslation();

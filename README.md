@@ -27,5 +27,5 @@ npm install badminton-match
 ### Run the app
 ```bash
 npm install
-npm start
+npm preview
 ```

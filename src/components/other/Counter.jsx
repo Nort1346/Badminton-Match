@@ -6,14 +6,13 @@ import {
   Col,
   ProgressBar,
 } from "react-bootstrap";
-// eslint-disable-next-line
-import Player from "./classes/Player";
-import playSound from "./functions/playSound";
+import Player from "@/classes/Player";
+import playSound from "@/functions/playSound";
 import { useTranslation } from "react-i18next";
-import Colors from "./enums/Colors";
-import { ReactComponent as Shuttle } from "./icons/shuttle.svg";
-import Sounds from "./enums/Sounds";
-import fetchSets from "./functions/fetchSets";
+import Colors from "@/enums/Colors";
+import Shuttle from '@/icons/shuttle.svg?react';
+import Sounds from "@/enums/Sounds";
+import fetchSets from "@/functions/fetchSets";
 
 /**
  * @param {Object} props
@@ -26,7 +25,7 @@ function Counter({ player, setPlayer, servingPlayer, disabled }) {
   const { t } = useTranslation();
 
   const setServingPlayerColor = () => {
-    servingPlayer.set((prev) => player.color);
+    servingPlayer.set(() => player.color);
   };
 
   const addPoint = () => {

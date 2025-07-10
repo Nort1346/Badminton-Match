@@ -1,5 +1,5 @@
 import { Howl } from "howler";
-import Sounds from "../enums/Sounds";
+import Sounds from "@/enums/Sounds";
 import isEmpty from "./isEmpty";
 
 const SoundsHowl = {};

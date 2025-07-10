@@ -1,30 +1,35 @@
 import "./App.css";
 import { Row, Col, Container, Stack } from "react-bootstrap";
-import Counter from "./components/Counter";
-import React, { useState, useEffect, useCallback } from "react";
-import Footer from "./components/Footer";
-import Player from "./components/classes/Player.js";
-import WinnerModal from "./components/WinnerModal";
-import playSound from "./components/functions/playSound.js";
-import HandleSpeak from "./components/functions/handleSpeak.js";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import startConfetti from "./components/functions/startConfetti.js";
-import Colors from "./components/enums/Colors.js";
-import toggleFullScreen from "./components/functions/toggleFullScreen.js";
-import getRandomColor from "./components/functions/getRandomColor.js";
-import Sounds from "./components/enums/Sounds.js";
-import SettingModal from "./components/SettingModal";
-import fetchPoints from "./components/functions/fetchPoints";
-import fetchLeadPoints from "./components/functions/fetchLeadPoints";
-import fetchSets from "./components/functions/fetchSets";
-import SettingButton from "./components/buttons/SettingButton";
-import FullScreenButton from "./components/buttons/FullScreenButton";
-import SpeakButton from "./components/buttons/SpeakButton";
-import InvertButton from "./components/buttons/InvertButton";
-import LanguageButton from "./components/buttons/LanguageButton";
-import ResetButton from "./components/buttons/ResetButton";
-import HistoryButton from "./components/buttons/HistoryButton";
-import HistoryModal from "./components/HistoryModal";
+import Player from "@/classes/Player.js";
+
+import playSound from "@/functions/playSound.js";
+import HandleSpeak from "@/functions/handleSpeak.js";
+import startConfetti from "@/functions/startConfetti.js";
+import toggleFullScreen from "@/functions/toggleFullScreen.js";
+import fetchSets from "@/functions/fetchSets";
+import getRandomColor from "@/functions/getRandomColor.js";
+import fetchPoints from "@/functions/fetchPoints";
+import fetchLeadPoints from "@/functions/fetchLeadPoints";
+
+import SettingButton from "@/components/buttons/SettingButton.jsx";
+import FullScreenButton from "@/components/buttons/FullScreenButton.jsx";
+import SpeakButton from "@/components/buttons/SpeakButton.jsx";
+import InvertButton from "@/components/buttons/InvertButton.jsx";
+import LanguageButton from "@/components/buttons/LanguageButton.jsx";
+import ResetButton from "@/components/buttons/ResetButton.jsx";
+import HistoryButton from "@/components/buttons/HistoryButton.jsx";
+
+import SettingModal from "@/components/modals/SettingModal.jsx";
+import WinnerModal from "@/components/modals/WinnerModal.jsx";
+import HistoryModal from "@/components/modals/HistoryModal.jsx";
+
+import Footer from "@/components/other/Footer.jsx";
+import Counter from "@/components/other/Counter.jsx";
+
+import Colors from "@/enums/Colors.js";
+import Sounds from "@/enums/Sounds.js";
 
 function App() {
   const { t } = useTranslation();
@@ -86,7 +91,7 @@ function App() {
       }));
       playSound(Sounds.Winning);
       handleOpenWinnerModal();
-      setServingPlayer((prev) => null);
+      setServingPlayer(() => null);
       const matchObject = [
         { name: playerOne.name, sets: playerOne.sets, color: playerOne.color },
         { name: playerTwo.name, sets: playerTwo.sets, color: playerTwo.color },
@@ -124,22 +129,22 @@ function App() {
     setWinnerModal((prev) => ({ ...prev, show: false }));
   };
 
-  const handleOpenSettingModal = () => setSettingModal((prev) => true);
+  const handleOpenSettingModal = () => setSettingModal(() => true);
 
   const handleCloseSettingModal = (reset) => {
     if (reset) resetPlayersScore();
-    setSettingModal((prev) => false);
+    setSettingModal(() => false);
   };
 
-  const handleOpenHistoryModal = () => setHistoryModal((prev) => true);
+  const handleOpenHistoryModal = () => setHistoryModal(() => true);
 
   const handleCloseHistoryModal = () => {
-    setHistoryModal((prev) => false);
+    setHistoryModal(() => false);
   };
 
   const invertPlayers = () => {
-    setPlayerOne((prevPlayerOne) => playerTwo);
-    setPlayerTwo((prevPlayerTwo) => playerOne);
+    setPlayerOne(() => playerTwo);
+    setPlayerTwo(() => playerOne);
   };
 
   const resetPlayersScore = () => {
@@ -149,7 +154,7 @@ function App() {
       ...prev,
       showed: false,
     }));
-    setServingPlayer((prev) => getRandomColor());
+    setServingPlayer(() => getRandomColor());
   };
 
   const resetPlayersPoints = () => {
